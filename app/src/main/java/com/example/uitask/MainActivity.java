@@ -25,9 +25,7 @@ public class MainActivity extends AppCompatActivity {
     //   /testdata.json
 
     ActivityMainBinding binding;
-
     public static String api = "https://testffc.nimapinfotech.com";
-
 
     List<Model> Userlist;
 
