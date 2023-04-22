@@ -1,11 +1,14 @@
 package com.example.uitask;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.uitask.DataModels.MainModel;
+import com.example.uitask.DataModels.ModelRecord;
 import com.example.uitask.databinding.ItemLayoutBinding;
 
 import java.util.List;
@@ -14,12 +17,13 @@ import retrofit2.Callback;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    List<Model> userlist;
-    MainActivity mainActivity;
+    List<MainModel> userlist;
+    Context context;
 
-    public RecyclerViewAdapter(List<Model> userlist, MainActivity mainActivity) {
+    public RecyclerViewAdapter(List<MainModel> userlist,Context context) {
         this.userlist = userlist;
-        this.mainActivity =  mainActivity;
+        //this.mainActivity =  mainActivity;
+        this.context = context;
     }
 
     /* public RecyclerViewAdapter(ArrayList<Model> arrayList, Context context) {
@@ -41,7 +45,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
 
-        holder.binding.Title.setText(userlist.get(position).getTitle());
+
+        holder.binding.Title.setText(userlist.get(position).getModelData().getRecords().get(0).getTitle());
     }
 
     @Override
@@ -57,6 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemLayoutBinding.getRoot());
 
             binding = itemLayoutBinding;
+
         }
     }
 }

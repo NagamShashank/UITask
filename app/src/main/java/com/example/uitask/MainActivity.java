@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.uitask.DataModels.MainModel;
+import com.example.uitask.DataModels.ModelData;
+import com.example.uitask.DataModels.ModelRecord;
 import com.example.uitask.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -24,10 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
     //   /testdata.json
 
-    ActivityMainBinding binding;
-    public static String api = "https://testffc.nimapinfotech.com";
 
-    List<Model> Userlist;
+  // https://run.mocky.io/v3/883e57df-e77a-418a-90c7-4150e3ce88db
+
+    ActivityMainBinding binding;
+    public static String api = "https://run.mocky.io/";
+
+    List<MainModel> Userlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +44,23 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.RecyclerView.setLayoutManager(layoutManager);
 
-
-
-
-        RetrofitInstance.getRetrofitInstance().apiInterface.getUsers().enqueue(new Callback<List<Model>>() {
+        RetrofitInstance.getRetrofitInstance().apiInterface.getUsers().enqueue(new Callback<List<MainModel>>() {
             @Override
-            public void onResponse(@NonNull Call<List<Model>> call, @NonNull Response<List<Model>> response) {
-                Userlist.addAll(response.body());
+            public void onResponse(@NonNull Call<List<MainModel>> call, @NonNull Response<List<MainModel>> response) {
+                Userlist = response.body();
                 //Log.e("api","Failure" + response.body());
-                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(Userlist, MainActivity.this);
+                RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(Userlist,getBaseContext());
                 binding.RecyclerView.setAdapter(recyclerViewAdapter);
                 recyclerViewAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Model>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<MainModel>> call, Throwable t) {
                 Log.e("api","Failure" + t.getLocalizedMessage());
             }
         });
+
+
 
 
 
